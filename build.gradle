@@ -1,0 +1,107 @@
+// Plugins
+plugins {
+	id 'java'
+	id 'eclipse'
+	id 'idea'
+	id 'maven-publish'
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+    id 'com.jfrog.bintray' version '1.8.4'
+    id 'com.jfrog.artifactory' version '4.8.1'
+}
+
+// Repositories
+repositories {
+	jcenter()
+	maven { url "https://dl.bintray.com/philippheuer/maven" }
+}
+
+// Dependency Management for Subprojects
+dependencyManagement {
+	dependencies {
+		// Logging
+		dependency group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+		dependency group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+		// Apache Commons
+		dependency group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+		dependency group: 'commons-io', name: 'commons-io', version: '2.6'
+
+		// Event Dispatcher
+		dependency group: 'com.github.philippheuer.events4j', name: 'events4j', version: '0.4.0'
+
+		// Credential Manager
+		dependency group: 'com.github.philippheuer.credentialmanager', name: 'credentialmanager', version: '0.0.6'
+
+		// HTTP Client
+		dependency group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.11.0'
+
+		// Http Client
+		dependency group: 'io.github.openfeign', name: 'feign-okhttp', version: '10.0.1'
+		dependency group: 'io.github.openfeign', name: 'feign-jackson', version: '10.0.1'
+		dependency group: 'io.github.openfeign', name: 'feign-slf4j', version: '10.0.1'
+		dependency group: 'io.github.openfeign', name: 'feign-hystrix', version: '10.0.1'
+
+		// Jackson (JSON)
+		dependency group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
+
+		// WebSocket
+		dependency group: 'com.neovisionaries', name: 'nv-websocket-client', version: '2.6'
+
+		// Testing
+		dependency group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.1'
+		dependency group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.1'
+
+		// Lombok
+		dependency group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+	}
+}
+
+// Dependencies
+dependencies {
+	// Logging
+	compile group: 'org.slf4j', name: 'slf4j-api'
+	testCompile group: 'ch.qos.logback', name: 'logback-classic'
+
+	// Apache Commons
+	compile group: 'org.apache.commons', name: 'commons-lang3'
+	compile group: 'commons-io', name: 'commons-io'
+
+	// Test
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api'
+	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
+
+	// Getter & Setter
+	compileOnly group: 'org.projectlombok', name: 'lombok'
+	testCompile group: 'org.projectlombok', name: 'lombok'
+	annotationProcessor group: 'org.projectlombok', name: 'lombok'
+
+	// Event Manager
+	compile group: 'com.github.philippheuer.events4j', name: 'events4j'
+
+	// Credential Manager
+	compile group: 'com.github.philippheuer.credentialmanager', name: 'credentialmanager'
+
+	// HTTP Client
+	compile group: 'io.github.openfeign', name: 'feign-okhttp'
+	compile group: 'io.github.openfeign', name: 'feign-jackson'
+	compile group: 'io.github.openfeign', name: 'feign-slf4j'
+	compile group: 'io.github.openfeign', name: 'feign-hystrix', version: '10.0.1'
+
+	// Jackson (JSON)
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+}
+
+// Artifact Info
+project.ext {
+	groupId = 'com.github.twitch4j'
+	artifactNamespace = 'twitch4j'
+	artifactName = 'Streamlabs4J'
+	artifactVersion = String.valueOf(System.getenv("CI_COMMIT_REF_NAME")).replace("v", "") + (Boolean.valueOf(System.getProperty("snapshot")) ? "-SNAPSHOT" : "")
+	artifactDescription = 'Streamlabs4J'
+	websiteUrl = 'https://github.com/twitch4j/streamlabs4j'
+	issueTrackerUrl = 'https://github.com/twitch4j/streamlabs4j/issues'
+	vcsUrl = 'https://github.com/twitch4j/streamlabs4j.git'
+}
+
+// Deployment Script
+apply from: 'deployment.gradle'
