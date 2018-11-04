@@ -1,9 +1,7 @@
 package com.github.twitch4j.streamlabs4j.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.twitch4j.helix.domain.TwitchHelixError;
-import com.github.twitch4j.helix.exception.NotFoundException;
-import com.github.twitch4j.helix.exception.UnauthorizedException;
+import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsApiError;
 import feign.Request;
 import feign.Response;
 import feign.RetryableException;
@@ -39,7 +37,7 @@ public class StreamlabsApiErrorDecoder implements ErrorDecoder {
      * Overwrite the Decode Method to handle custom error cases
      *
      * @param methodKey Method Key
-     * @param response Response
+     * @param response  Response
      * @return Exception
      */
     @Override
@@ -47,34 +45,21 @@ public class StreamlabsApiErrorDecoder implements ErrorDecoder {
         try {
             String responseBody = IOUtils.toString(response.body().asInputStream(), StandardCharsets.UTF_8.name());
 
-            if (response.status() == 401) {
-                throw new UnauthorizedException()
-                    .addContextValue("requestUrl", response.request().url())
-                    .addContextValue("requestMethod", response.request().httpMethod())
-                    .addContextValue("requestHeaders", response.request().headers().entrySet().toString())
-                    .addContextValue("responseBody", responseBody);
-            } else if (response.status() == 404) {
-                throw new NotFoundException()
-                    .addContextValue("requestUrl", response.request().url())
-                    .addContextValue("requestMethod", response.request().httpMethod())
-                    .addContextValue("requestHeaders", response.request().headers().entrySet().toString())
-                    .addContextValue("responseBody", responseBody);
-            } else if (response.status() == 503) {
+            if (response.status() == 503) {
                 // If you get an HTTP 503 (Service Unavailable) error, retry once.
                 // If that retry also results in an HTTP 503, there probably is something wrong with the downstream service.
                 // Check the status page for relevant updates.
                 return new RetryableException("getting service unavailable, retrying ...", Request.HttpMethod.GET, null);
             }
 
-            TwitchHelixError helixError = objectMapper.readValue(responseBody, TwitchHelixError.class);
-            return new ContextedRuntimeException("Helix API Error")
+            StreamlabsApiError apiError = objectMapper.readValue(responseBody, StreamlabsApiError.class);
+            return new ContextedRuntimeException("Streamlabs API Error")
                 .addContextValue("requestUrl", response.request().url())
                 .addContextValue("requestMethod", response.request().httpMethod())
                 .addContextValue("requestHeaders", response.request().headers().entrySet().toString())
                 .addContextValue("responseBody", responseBody)
-                .addContextValue("errorType", helixError.getError())
-                .addContextValue("errorStatus", helixError.getStatus())
-                .addContextValue("errorType", helixError.getMessage());
+                .addContextValue("errorType", apiError.getError())
+                .addContextValue("errorMessage", apiError.getErrorDescription());
         } catch (IOException fallbackToDefault) {
             return defaultDecoder.decode(methodKey, response);
         }

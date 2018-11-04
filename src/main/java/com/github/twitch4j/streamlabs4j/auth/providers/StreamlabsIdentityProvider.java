@@ -26,51 +26,54 @@ public class StreamlabsIdentityProvider extends OAuth2IdentityProvider {
      */
     public StreamlabsIdentityProvider(String clientId, String clientSecret, String redirectUrl) {
         super("streamlabs", "oauth2", clientId, clientSecret, "https://streamlabs.com/api/v1.0/authorize", "https://streamlabs.com/api/v1.0/token", redirectUrl);
+
+        // overwrite scope separator
+        this.scopeSeperator = "+";
+        this.tokenEndpointPostType = "BODY";
     }
 
     /**
      * Get Auth Token Information
      *
-     * @param authToken Auth Token
+     * @param credential OAuth2 Credential
      */
-    public Optional<OAuth2Credential> getTokenInformation(String authToken) {
+    public Optional<OAuth2Credential> getAdditionalCredentialInformation(OAuth2Credential credential) {
+        return Optional.ofNullable(credential);
+        /*
         try {
             // api call
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url("https://id.twitch.tv/oauth2/validate")
-                    .header("Authorization", "OAuth " + authToken)
-                    .build();
+                .url("https://id.twitch.tv/oauth2/validate")
+                .header("Authorization", "OAuth " + credential.getAccessToken())
+                .build();
 
             Response response = client.newCall(request).execute();
             String responseBody = response.body().string();
 
             // parse response
-            ObjectMapper objectMapper = new ObjectMapper();
-            HashMap<String, Object> tokenInfo = objectMapper.readValue(responseBody, new TypeReference<HashMap<String, Object>>() {});
+            if (response.isSuccessful()) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                HashMap<String, Object> tokenInfo = objectMapper.readValue(responseBody, new TypeReference<HashMap<String, Object>>() {
+                });
+                String userId = (String) tokenInfo.get("user_id");
+                String userName = (String) tokenInfo.get("login");
+                List<String> scopes = (List<String>) tokenInfo.get("scopes");
 
-            String userId = (String) tokenInfo.get("user_id");
-            String userName = (String) tokenInfo.get("login");
-            List<String> scopes = (List<String>) tokenInfo.get("scopes");
+                // create credential instance
+                OAuth2Credential newCredential = new OAuth2Credential(credential.getIdentityProvider(), credential.getAccessToken(), credential.getRefreshToken(), userId, userName, null, scopes);
 
-            // create credential instance
-            OAuth2Credential credential = new OAuth2Credential("twitch", authToken, userId, userName, scopes);
+                return Optional.ofNullable(newCredential);
+            } else {
+                throw new RuntimeException("Request Failed! Code: " + response.code() + " - " + responseBody);
+            }
 
-            return Optional.ofNullable(credential);
         } catch (Exception ex) {
             // ignore, invalid token
         }
 
         return Optional.empty();
-    }
-
-    /**
-     * Validate the Token
-     *
-     * @param authToken Auth Token
-     */
-    public Boolean validateToken(String authToken) {
-        return getTokenInformation(authToken).isPresent();
+        */
     }
 
 }

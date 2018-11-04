@@ -30,7 +30,7 @@ public class CommonHeaderInterceptor implements RequestInterceptor {
      */
     @Override
     public void apply(RequestTemplate template) {
-        template.header("Client-Id", streamlabsApiBuilder.getClientId());
+        template.query("client-id", streamlabsApiBuilder.getClientId());
         template.header("User-Agent", streamlabsApiBuilder.getUserAgent());
     }
 }
