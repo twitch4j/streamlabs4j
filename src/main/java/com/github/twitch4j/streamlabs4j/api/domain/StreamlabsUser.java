@@ -24,7 +24,7 @@ public class StreamlabsUser {
     private StreamlabsUserInformation streamlabs;
 
     // Twitch User Information
-    private Optional<StreamlabsUserInformation> twitch;
+    private Optional<TwitchUserInformation> twitch;
 
     // Youtube User Information
     private Optional<YoutubeUserInformation> youtube;

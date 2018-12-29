@@ -1,5 +1,7 @@
 package com.github.twitch4j.streamlabs4j.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.github.philippheuer.events4j.EventManager;
 import com.github.twitch4j.streamlabs4j.api.interceptors.CommonHeaderInterceptor;
 import feign.Logger;
@@ -69,15 +71,18 @@ public class StreamlabsApiBuilder {
      */
     public StreamlabsApi build() {
         log.debug("API: Initializing Module ...");
-        StreamlabsApi client = HystrixFeign.builder()
-            .encoder(new JacksonEncoder())
-            .decoder(new JacksonDecoder())
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new Jdk8Module());
+
+        return HystrixFeign.builder()
+            .encoder(new JacksonEncoder(mapper))
+            .decoder(new JacksonDecoder(mapper))
             .logger(new Logger.ErrorLogger())
             .errorDecoder(new StreamlabsApiErrorDecoder(new JacksonDecoder()))
             .logLevel(Logger.Level.BASIC)
             .requestInterceptor(new CommonHeaderInterceptor(this))
             .retryer(new Retryer.Default(1, 100, 3))
             .target(StreamlabsApi.class, baseUrl);
-        return client;
     }
 }
