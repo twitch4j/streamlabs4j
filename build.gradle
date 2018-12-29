@@ -13,6 +13,7 @@ plugins {
 repositories {
 	jcenter()
 	maven { url "https://dl.bintray.com/philippheuer/maven" }
+	maven { url "https://oss.jfrog.org/artifactory/libs-release"}
 }
 
 // Dependency Management for Subprojects
@@ -44,6 +45,7 @@ dependencyManagement {
 
 		// Jackson (JSON)
 		dependency group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
+		dependency group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.9.7'
 
 		// WebSocket
 		dependency group: 'com.neovisionaries', name: 'nv-websocket-client', version: '2.6'
@@ -91,6 +93,7 @@ dependencies {
 
 	// Jackson (JSON)
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8'
 }
 
 // Artifact Info
