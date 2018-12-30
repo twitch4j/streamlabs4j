@@ -96,4 +96,14 @@ class StreamlabsApiTest {
         assertThrows(HystrixRuntimeException.class, command::execute, "we are not (yet?) authorized to do that");
     }
 
+    @Test
+    public void getAlertProfiles() {
+        StreamlabsAlertProfiles profiles = api.getAlertProfiles(authToken).execute();
+
+        assertEquals(1, profiles.getActiveProfile(), "the first profile is the one active");
+        assertEquals(1, profiles.getProfiles().size(), "yaourtgg only has one profile");
+        assertEquals("Default", profiles.getProfiles().get(0).getName(), "yaourtgg only has the default profile");
+        assertEquals("Default profile", profiles.getProfiles().get(0).getDescription(), "yaourtgg only has the default description");
+    }
+
 }

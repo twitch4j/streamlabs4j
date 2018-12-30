@@ -143,4 +143,15 @@ public interface StreamlabsApi {
         @Param("page") int pageNumber
     );
 
+    /**
+     * Get alert profiles for the user associated with the specified token
+     *
+     * @param authToken your authenticated token
+     * @return information about all alert profiles
+     */
+    @RequestLine("GET /alert_profiles/get?access_token={access_token}")
+    HystrixCommand<StreamlabsAlertProfiles> getAlertProfiles(
+        @Param("access_token") String authToken
+    );
+
 }
