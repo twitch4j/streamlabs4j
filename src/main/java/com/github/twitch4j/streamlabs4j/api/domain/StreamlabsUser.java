@@ -20,21 +20,34 @@ import java.util.Optional;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StreamlabsUser {
 
-    // Streamlabs User Information
+    /**
+     * Streamlabs User Information
+     */
     private StreamlabsUserInformation streamlabs;
 
-    // Twitch User Information
+    /**
+     * Twitch User Information
+     */
     private Optional<TwitchUserInformation> twitch;
 
-    // Youtube User Information
+    /**
+     * YouTube User Information
+     */
     private Optional<YoutubeUserInformation> youtube;
 
-    // Mixer User Information
+    /**
+     * Mixer User Information
+     */
     private Optional<MixerUserInformation> mixer;
 
-    // Facebook User Information
+    /**
+     * Facebook User Information
+     */
     private Optional<FacebookUserInformation> facebook;
 
+    /**
+     * Streamlabs information
+     */
     @Data
     @Setter(AccessLevel.PRIVATE)
     @NoArgsConstructor
@@ -42,14 +55,21 @@ public class StreamlabsUser {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class StreamlabsUserInformation {
 
-        // UserId
+        /**
+         * Id of the user
+         */
         private Long id;
 
-        // DisplayName
+        /**
+         * Name displayed on Streamlabs' website
+         */
         private String displayName;
 
     }
 
+    /**
+     * Twitch information
+     */
     @Data
     @Setter(AccessLevel.PRIVATE)
     @NoArgsConstructor
@@ -57,17 +77,26 @@ public class StreamlabsUser {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class TwitchUserInformation {
 
-        // UserId
+        /**
+         * Id of the user
+         */
         private Long id;
 
-        // Name
+        /**
+         * Name of the user lowercase
+         */
         private String name;
 
-        // DisplayName
+        /**
+         * Name displayed on Twitch's website
+         */
         private String displayName;
 
     }
 
+    /**
+     * YouTube information
+     */
     @Data
     @Setter(AccessLevel.PRIVATE)
     @NoArgsConstructor
@@ -75,14 +104,21 @@ public class StreamlabsUser {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class YoutubeUserInformation {
 
-        // UserId
+        /**
+         * Id of the user
+         */
         private String id;
 
-        // Title
+        /**
+         * Channel title
+         */
         private String title;
 
     }
 
+    /**
+     * Mixer information
+     */
     @Data
     @Setter(AccessLevel.PRIVATE)
     @NoArgsConstructor
@@ -90,14 +126,21 @@ public class StreamlabsUser {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class MixerUserInformation {
 
-        // UserId
+        /**
+         * Id of the user
+         */
         private Long id;
 
-        // Name
+        /**
+         * Name displayed on Mixer's website
+         */
         private String name;
 
     }
 
+    /**
+     * Facebook information
+     */
     @Data
     @Setter(AccessLevel.PRIVATE)
     @NoArgsConstructor
@@ -105,10 +148,14 @@ public class StreamlabsUser {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class FacebookUserInformation {
 
-        // UserId
+        /**
+         * Id of the user
+         */
         private Long id;
 
-        // Name
+        /**
+         * Name displayed on Facebook's website
+         */
         private String name;
 
     }

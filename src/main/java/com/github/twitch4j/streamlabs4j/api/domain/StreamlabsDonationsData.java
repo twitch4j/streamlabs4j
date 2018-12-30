@@ -24,6 +24,9 @@ import java.util.Optional;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StreamlabsDonationsData {
 
+    /**
+     * List of donations
+     */
     @JsonProperty("data")
     private List<StreamlabsDonation> donations;
 
@@ -50,7 +53,7 @@ public class StreamlabsDonationsData {
         private Date creationDate;
 
         @JsonProperty("created_at")
-        private void convertDate(String epoch) {
+        private void convertEpoch(String epoch) {
             creationDate = new Date(Long.parseLong(epoch));
         }
 

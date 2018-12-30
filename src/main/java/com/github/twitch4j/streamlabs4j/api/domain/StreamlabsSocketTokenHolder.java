@@ -19,6 +19,9 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StreamlabsSocketTokenHolder {
 
+    /**
+     * The socket token
+     */
     @JsonProperty("socket_token")
     private String token;
 }
