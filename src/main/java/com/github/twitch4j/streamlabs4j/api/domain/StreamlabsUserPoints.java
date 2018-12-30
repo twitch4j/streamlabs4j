@@ -60,7 +60,6 @@ public class StreamlabsUserPoints {
     /**
      * Unknown id (will document it later)
      */
-    @JsonProperty("ta_id")
     private Optional<String> taId;
 
     /**
