@@ -3,6 +3,7 @@ package com.github.twitch4j.streamlabs4j.api;
 import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsDonationsData;
 import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsSocketTokenHolder;
 import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsUser;
+import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsWidgetTokenHolder;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -70,6 +71,13 @@ class StreamlabsApiTest {
         StreamlabsSocketTokenHolder holder = api.getSocketToken(authToken).execute();
         assertFalse(holder.getToken().isEmpty(), "the token should not be empty");
 
+    }
+
+    @Test
+    public void getWidgetToken() {
+        StreamlabsWidgetTokenHolder holder = api.getWidgetToken(authToken).execute();
+
+        assertFalse(holder.getToken().isEmpty());
     }
 
 }

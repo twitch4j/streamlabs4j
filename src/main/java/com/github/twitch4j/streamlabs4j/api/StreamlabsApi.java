@@ -1,8 +1,6 @@
 package com.github.twitch4j.streamlabs4j.api;
 
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsDonationsData;
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsSocketTokenHolder;
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsUser;
+import com.github.twitch4j.streamlabs4j.api.domain.*;
 import com.netflix.hystrix.HystrixCommand;
 import feign.Param;
 import feign.RequestLine;
@@ -64,4 +62,25 @@ public interface StreamlabsApi {
     HystrixCommand<StreamlabsSocketTokenHolder> getSocketToken(
         @Param("access_token") String authToken
     );
+
+    /**
+     * Gets a token usable in Widgets URLs
+     *
+     * @param authToken Your authentication token
+     * @return a token
+     */
+    @RequestLine("GET /legacy/token?" +
+        "access_token={access_token}")
+    HystrixCommand<StreamlabsWidgetTokenHolder> getWidgetToken(
+        @Param("access_token") String authToken
+    );
+
+    @RequestLine("GET /points?" +
+        "access_token={access_token}&" +
+        "username={username}&" +
+        "channel={channel}")
+    HystrixCommand<StreamlabsUserPoints> getUserPoints(
+
+    );
+
 }
