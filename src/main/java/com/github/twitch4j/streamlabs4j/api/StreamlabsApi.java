@@ -5,6 +5,8 @@ import com.netflix.hystrix.HystrixCommand;
 import feign.Param;
 import feign.RequestLine;
 
+import java.util.List;
+
 public interface StreamlabsApi {
 
     /**
@@ -92,6 +94,25 @@ public interface StreamlabsApi {
         @Param("access_token") String authToken,
         @Param("username") String username,
         @Param("channel") String channel
+    );
+
+    /**
+     * Gets information about loyalty points for a group of users <br>
+     * Requires the points.read scope AND approval from the streamlabs team
+     *
+     * @param authToken your authentication token
+     * @param channel   the channel you want to search
+     * @param usernames users you want to search
+     * @return a list of users with information about their points and minutes watched
+     */
+    @RequestLine("GET /points/group_get_points?" +
+        "access_token={access_token}&" +
+        "channel={channel}&" +
+        "usernames={usernames}")
+    HystrixCommand<List<StreamlabsGroupedUserPoints>> getGroupedPoints(
+        @Param("access_token") String authToken,
+        @Param("channel") String channel,
+        @Param("usernames") List<String> usernames
     );
 
 }

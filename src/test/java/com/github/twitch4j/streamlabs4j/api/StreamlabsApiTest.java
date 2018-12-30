@@ -1,8 +1,12 @@
 package com.github.twitch4j.streamlabs4j.api;
 
-import com.github.twitch4j.streamlabs4j.api.domain.*;
+import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsDonationsData;
+import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsSocketTokenHolder;
+import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsUser;
+import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsWidgetTokenHolder;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,7 +81,12 @@ class StreamlabsApiTest {
     @Test
     public void getUserPoints() {
         boolean failed = api.getUserPoints(authToken, "yaourtgg", "yaourtgg").isExecutionComplete();
+        assertFalse(failed, "we are not (yet?) authorized to do that");
+    }
 
+    @Test
+    public void getGroupedUserPoints() {
+        boolean failed = api.getGroupedPoints(authToken, "yaourtgg", Collections.singletonList("yaourtgg")).isExecutionComplete();
         assertFalse(failed, "we are not (yet?) authorized to do that");
     }
 
