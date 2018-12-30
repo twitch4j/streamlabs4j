@@ -45,10 +45,6 @@ public interface StreamlabsApi {
         @Param("after") String after,
         @Param("currency") String currency,
         @Param("verified") String verified
-        @Param("currency") String currency,
-        @Param("created_at") String createdAt,
-        @Param("access_token") String authToken,
-        @Param("skip_alert") String skipAlert
     );
 
     /**
