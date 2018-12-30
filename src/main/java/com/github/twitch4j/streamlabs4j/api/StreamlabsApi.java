@@ -115,4 +115,32 @@ public interface StreamlabsApi {
         @Param("usernames") List<String> usernames
     );
 
+    /**
+     * Get a information based on a partial username search <br>
+     * Requires the points.read scope AND approval from the streamlabs team
+     *
+     * @param authToken  your authentication token
+     * @param username   the partial username to search
+     * @param sortBy     the sort criteria (can be username, points or time_watched)
+     * @param order      order of sorting (asc or desc)
+     * @param limitBy    limit results per page (between 1 and 100 included)
+     * @param pageNumber the page requested (in case of multiple result pages)
+     * @return a paginated list of results corresponding to the partial username
+     */
+    @RequestLine("GET /points/user_points?" +
+        "access_token={access_token}&" +
+        "username={username}&" +
+        "sort={sort}&" +
+        "order={order}&" +
+        "limit={limit}&" +
+        "page={page}")
+    HystrixCommand<StreamlabsPartialUserPoints> getPartialUserPoints(
+        @Param("access_token") String authToken,
+        @Param("username") String username,
+        @Param("sort") String sortBy,
+        @Param("order") String order,
+        @Param("limit") int limitBy,
+        @Param("page") int pageNumber
+    );
+
 }

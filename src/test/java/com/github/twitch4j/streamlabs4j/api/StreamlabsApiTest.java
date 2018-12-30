@@ -1,9 +1,8 @@
 package com.github.twitch4j.streamlabs4j.api;
 
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsDonationsData;
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsSocketTokenHolder;
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsUser;
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsWidgetTokenHolder;
+import com.github.twitch4j.streamlabs4j.api.domain.*;
+import com.netflix.hystrix.HystrixCommand;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -88,6 +87,10 @@ class StreamlabsApiTest {
     public void getGroupedUserPoints() {
         boolean failed = api.getGroupedPoints(authToken, "yaourtgg", Collections.singletonList("yaourtgg")).isExecutionComplete();
         assertFalse(failed, "we are not (yet?) authorized to do that");
+    @Test
+    public void getPartialUserPoints() {
+        HystrixCommand<StreamlabsPartialUserPoints> command = api.getPartialUserPoints(authToken, "yaourt", "", "", 10, 1);
+        assertThrows(HystrixRuntimeException.class, command::execute, "we are not (yet?) authorized to do that");
     }
 
 }
