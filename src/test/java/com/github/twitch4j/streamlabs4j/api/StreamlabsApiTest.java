@@ -1,9 +1,6 @@
 package com.github.twitch4j.streamlabs4j.api;
 
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsDonationsData;
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsSocketTokenHolder;
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsUser;
-import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsWidgetTokenHolder;
+import com.github.twitch4j.streamlabs4j.api.domain.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -21,7 +18,6 @@ class StreamlabsApiTest {
 
     @Test
     public void getUserTests() {
-
         StreamlabsUser user = api.getUser(authToken).execute();
 
         assertEquals("YaourtGG", user.getStreamlabs().getDisplayName());
@@ -41,28 +37,28 @@ class StreamlabsApiTest {
         assertNotEquals(0, donations.getDonations().size());
 
         assertTrue(donations.getDonations()
-            .stream()
-            .anyMatch(donation -> donation.getName().equals("yaourtgg")),
+                .stream()
+                .anyMatch(donation -> donation.getName().equals("yaourtgg")),
             "yaourtgg has donated at least once");
 
         assertTrue(donations.getDonations()
-            .stream()
-            .anyMatch(donation -> donation.getName().equals("Hexafice")),
+                .stream()
+                .anyMatch(donation -> donation.getName().equals("Hexafice")),
             "Hexafice has donated at least once");
 
         assertTrue(donations.getDonations()
-            .stream()
-            .anyMatch(donation -> donation.getCurrency().equals("EUR")),
+                .stream()
+                .anyMatch(donation -> donation.getCurrency().equals("EUR")),
             "At least one donation in EUR");
 
         assertTrue(donations.getDonations()
-            .stream()
-            .anyMatch(donation -> donation.getMessage().isPresent()),
+                .stream()
+                .anyMatch(donation -> donation.getMessage().isPresent()),
             "One of the donations has a message");
 
         assertTrue(donations.getDonations()
-            .stream()
-            .anyMatch(donation -> donation.getMessage().equals(Optional.empty())),
+                .stream()
+                .anyMatch(donation -> donation.getMessage().equals(Optional.empty())),
             "One of the donations doesn't have a message");
     }
 
@@ -70,14 +66,19 @@ class StreamlabsApiTest {
     public void getSocketToken() {
         StreamlabsSocketTokenHolder holder = api.getSocketToken(authToken).execute();
         assertFalse(holder.getToken().isEmpty(), "the token should not be empty");
-
     }
 
     @Test
     public void getWidgetToken() {
         StreamlabsWidgetTokenHolder holder = api.getWidgetToken(authToken).execute();
-
         assertFalse(holder.getToken().isEmpty());
+    }
+
+    @Test
+    public void getUserPoints() {
+        boolean failed = api.getUserPoints(authToken, "yaourtgg", "yaourtgg").isExecutionComplete();
+
+        assertFalse(failed, "we are not (yet?) authorized to do that");
     }
 
 }

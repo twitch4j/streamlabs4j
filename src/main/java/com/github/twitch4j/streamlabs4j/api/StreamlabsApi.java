@@ -80,7 +80,9 @@ public interface StreamlabsApi {
         "username={username}&" +
         "channel={channel}")
     HystrixCommand<StreamlabsUserPoints> getUserPoints(
-
+        @Param("access_token") String authToken,
+        @Param("username") String username,
+        @Param("channel") String channel
     );
 
 }
