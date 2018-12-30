@@ -1,6 +1,7 @@
 package com.github.twitch4j.streamlabs4j.api;
 
 import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsDonationsData;
+import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsSocketTokenHolder;
 import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsUser;
 import org.junit.jupiter.api.Test;
 
@@ -62,6 +63,13 @@ class StreamlabsApiTest {
             .stream()
             .anyMatch(donation -> donation.getMessage().equals(Optional.empty())),
             "One of the donations doesn't have a message");
+    }
+
+    @Test
+    public void getSocketToken() {
+        StreamlabsSocketTokenHolder holder = api.getSocketToken(authToken).execute();
+        assertFalse(holder.getToken().isEmpty(), "the token should not be empty");
+
     }
 
 }
