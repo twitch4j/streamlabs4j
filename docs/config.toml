@@ -1,4 +1,4 @@
-baseURL = "http://github.com/twitch4j"
+baseURL = "http://github.com/streamlabs4j"
 languageCode = "en-us"
 DefaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
@@ -11,7 +11,7 @@ pygmentsStyle = "monokailight"
 
 [Languages]
 [Languages.en]
-title = "Twitch4J - Official Documentation"
+title = "Streamlabs4J - Official Documentation"
 weight = 1
 languageName = "English"
 
@@ -34,5 +34,5 @@ home = [ "HTML", "RSS", "JSON"]
 pre = "<h3>More</h3>"
 name = "<i class='fa fa-github'></i> <label>Github repo</label>"
 identifier = "ds"
-url = "https://github.com/twitch4j/twitch4j"
+url = "https://github.com/twitch4j/streamlabs4j"
 weight = 10

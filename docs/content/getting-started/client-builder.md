@@ -3,23 +3,16 @@ title="Client-Builder"
 weight = 5
 +++
 
-# Twitch4J Client Builder
+# Streamlabs4J Client Builder
 
 ## All Features
-Initialize the Twitch4J Client and specify which modules you want to use:
+Initialize the Streamlabs4J Client using the clientId and clientSecret you got after [registering your app](https://streamlabs.com/dashboard#/apps/register):
 
 ```java
-TwitchClient twitchClient = TwitchClientBuilder.builder()
-            .withEnableHelix(true)
-            .build();
+StreamlabsApi api = StreamlabsApiBuilder.builder()
+        .withClientId("yourClientId")
+        .withClientSecret(yourClientSecret)
+        .build();
 ```
 
-## Overwrite the EventManager for Cross-Library Usage
-
-You can overwrite the native EventManager with a commonly used one to share events between Twitch4J and other 3rd party libraries.
-
-```java
-TwitchClient twitchClient = TwitchClientBuilder.builder()
-            .withEventManager(eventManager)
-            .build();
-```
+You can now interract with the api using the obect you have just created !

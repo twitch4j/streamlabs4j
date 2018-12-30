@@ -5,7 +5,7 @@ weight = 2
 
 # Installation
 
-We recommend using a dependency management tool to manage twitch4j and sub dependencies. As a fallback method you can also download a fatJar.
+We recommend using a dependency management tool to manage streamlabs4j and sub dependencies.
 
 ## Gradle
 Add it to your build.gradle with:
@@ -18,7 +18,7 @@ and: (latest, you should use the actual version here)
 
 ```groovy
 dependencies {
-    compile 'com.github.twitch4j:twitch4j:v0.13.0'
+    compile 'com.github.twitch4j:streamlabs4j:1.0.0'
 }
 ```
 
@@ -37,11 +37,7 @@ and: (latest, you should use the actual version here)
 ```xml
 <dependency>
     <groupId>com.github.twitch4j</groupId>
-    <artifactId>twitch4j</artifactId>
-    <version>v0.13.0</version>
+    <artifactId>streamlabs4j</artifactId>
+    <version>v1.0.0</version>
 </dependency>
 ```
-
-## fatJar
-
-[Download](http://localhost)
