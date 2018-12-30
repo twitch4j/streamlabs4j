@@ -4,6 +4,7 @@ import com.github.twitch4j.streamlabs4j.api.domain.*;
 import com.netflix.hystrix.HystrixCommand;
 import feign.Param;
 import feign.RequestLine;
+
 public interface StreamlabsApi {
 
     /**
@@ -19,7 +20,8 @@ public interface StreamlabsApi {
     );
 
     /**
-     * Gets donations about the user associated with the specified token
+     * Gets donations about the user associated with the specified token <br>
+     * Requires the donation.read scope
      *
      * @param authToken Your authentication token
      * @param limit     Limit the number of donations
@@ -48,7 +50,8 @@ public interface StreamlabsApi {
     );
 
     /**
-     * Gets a token allowing you to listen the user's events through sockets
+     * Gets a token allowing you to listen the user's events through sockets <br>
+     * Requires the socket.token scope
      *
      * @param authToken Your authentication token
      * @return a token
@@ -60,7 +63,8 @@ public interface StreamlabsApi {
     );
 
     /**
-     * Gets a token usable in Widgets URLs
+     * Gets a token usable in Widgets URLs <br>
+     * Requires the legacy.token scope
      *
      * @param authToken Your authentication token
      * @return a token
@@ -71,6 +75,15 @@ public interface StreamlabsApi {
         @Param("access_token") String authToken
     );
 
+    /**
+     * Gets information about loyalty points of an user <br>
+     * Requires the points.read scope AND approval from the streamlabs team
+     *
+     * @param authToken your authentication token
+     * @param username  the user you want to search
+     * @param channel   the channel you want to search
+     * @return the user you searched for in the specified channel
+     */
     @RequestLine("GET /points?" +
         "access_token={access_token}&" +
         "username={username}&" +
