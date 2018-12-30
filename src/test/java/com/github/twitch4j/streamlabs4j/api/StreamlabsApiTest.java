@@ -6,6 +6,7 @@ import com.netflix.hystrix.exception.HystrixRuntimeException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +21,7 @@ class StreamlabsApiTest {
     private String authToken = System.getenv("STREAMLABS_AUTH_TOKEN");
 
     @Test
-    public void getUserTests() {
+    public void getUser() {
         StreamlabsUser user = api.getUser(authToken).execute();
 
         assertEquals("YaourtGG", user.getStreamlabs().getDisplayName());
@@ -34,7 +35,7 @@ class StreamlabsApiTest {
     }
 
     @Test
-    public void getDonationsTest() {
+    public void getDonations() {
         StreamlabsDonationsData donations = api.getDonations(authToken, 100, "", "", "", "").execute();
 
         assertNotEquals(0, donations.getDonations().size());
@@ -77,16 +78,18 @@ class StreamlabsApiTest {
         assertFalse(holder.getToken().isEmpty());
     }
 
-    @Test
+    @Test()
     public void getUserPoints() {
-        boolean failed = api.getUserPoints(authToken, "yaourtgg", "yaourtgg").isExecutionComplete();
-        assertFalse(failed, "we are not (yet?) authorized to do that");
+        HystrixCommand<StreamlabsUserPoints> command = api.getUserPoints(authToken, "yaourtgg", "yaourtgg");
+        assertThrows(HystrixRuntimeException.class, command::execute, "we are not (yet?) authorized to do that");
     }
 
     @Test
     public void getGroupedUserPoints() {
-        boolean failed = api.getGroupedPoints(authToken, "yaourtgg", Collections.singletonList("yaourtgg")).isExecutionComplete();
-        assertFalse(failed, "we are not (yet?) authorized to do that");
+        HystrixCommand<List<StreamlabsGroupedUserPoints>> command = api.getGroupedPoints(authToken, "yaourtgg", Collections.singletonList("yaourtgg"));
+        assertThrows(HystrixRuntimeException.class, command::execute, "we are not (yet?) authorized to do that");
+    }
+
     @Test
     public void getPartialUserPoints() {
         HystrixCommand<StreamlabsPartialUserPoints> command = api.getPartialUserPoints(authToken, "yaourt", "", "", 10, 1);
