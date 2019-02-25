@@ -32,7 +32,7 @@ Add it to your pom.xml with:
     </repository>
     <repository>
       <id>jcenter-snapshot</id>
-      <url>https://oss.jfrog.org/artifactory/libs-release/</url>
+      <url>https://oss.jfrog.org/artifactory/libs-snapshot/</url>
     </repository>
 </repositories>
 ```
