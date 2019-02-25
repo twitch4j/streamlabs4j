@@ -11,14 +11,14 @@ We recommend using a dependency management tool to manage streamlabs4j and sub d
 Add it to your build.gradle with:
 ```groovy
 repositories {
-	jcenter()
+    jcenter()
+    maven { url "https://oss.jfrog.org/artifactory/libs-snapshot"}
 }
 ```
-and: (latest, you should use the actual version here)
 
 ```groovy
 dependencies {
-    compile 'com.github.twitch4j:streamlabs4j:1.0.0'
+    compile 'com.github.twitch4j:streamlabs4j:1.0.0-alpha.1-SNAPSHOT'
 }
 ```
 
@@ -30,14 +30,17 @@ Add it to your pom.xml with:
       <id>jcenter</id>
       <url>https://jcenter.bintray.com/</url>
     </repository>
+    <repository>
+      <id>jcenter-snapshot</id>
+      <url>https://oss.jfrog.org/artifactory/libs-release/</url>
+    </repository>
 </repositories>
 ```
-and: (latest, you should use the actual version here)
 
 ```xml
 <dependency>
     <groupId>com.github.twitch4j</groupId>
     <artifactId>streamlabs4j</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-alpha.1-SNAPSHOT</version>
 </dependency>
 ```
