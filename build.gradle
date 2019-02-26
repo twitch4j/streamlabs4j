@@ -1,0 +1,25 @@
+plugins {
+    // Kotlin plugin
+    id "org.jetbrains.kotlin.jvm" version "1.3.20"
+}
+
+repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    // HTTP Client
+    compile "com.github.kittinunf.fuel:fuel:2.0.1"
+    compile "com.github.kittinunf.fuel:fuel-reactor:2.0.1"
+
+    // Json Deserialization
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
+
+    // Tests
+    testImplementation "org.jetbrains.kotlin:kotlin-test"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
+}

@@ -1,0 +1,17 @@
+# IntelliJ related ignores
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Gradle related ignores
+.gradle/
+
+# Generated folders
+build/
+classes/
+out/
+
+# You know...
+src/main/java
+src/test/java
