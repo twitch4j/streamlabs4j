@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Request
+import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsDonationsData
 import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsUser
 import com.github.twitch4j.streamlabs4j.api.utils.RequestType.GET
 import com.github.twitch4j.streamlabs4j.api.utils.parameters
@@ -44,6 +45,44 @@ class StreamlabsApi(
                 type = GET
                 parameters = parameters {
                     "access_token" with token
+                }
+            }
+        }
+
+    /**
+     * Gets donations about the user associated with the specified [token]
+     *
+     * The number of donations can be limited with the [limit] parameter.
+     * Pagination is also supported so the [before] and [after]
+     * parameters can be used simultaneously to limit the output.
+     * It is also possible to filter the ouput by currency using the
+     * [currency] parameter.
+     * The [verified] parameter is used to include (true) real donations,
+     * (false) api / web donations or (null) both.
+     *
+     * Requires the donation.read scope.
+     *
+     * @return a list of donations associated with this [token]
+     */
+    fun getDonations(
+        token: String,
+        limit: Int?,
+        before: String?,
+        after: String?,
+        currency: String?,
+        verified: Boolean?
+    ): HystrixCommand<StreamlabsDonationsData> =
+        result {
+            request {
+                endpoint = "/donations"
+                type = GET
+                parameters = parameters {
+                    "access_token" with token
+                    "limit" with limit
+                    "before" with before
+                    "after" with after
+                    "currency" with currency
+                    "verified" with verified
                 }
             }
         }
