@@ -33,8 +33,6 @@ class StreamlabsApiTest {
         val donations =
             api.getDonations(authToken, 100, null, null, null, null).execute()
 
-        donations.data.forEach { println(it.name) }
-
         assertNotEquals(0, donations.data.size)
 
         assertTrue(

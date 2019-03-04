@@ -13,6 +13,7 @@ import com.github.twitch4j.streamlabs4j.api.utils.request
 import com.netflix.hystrix.HystrixCommand
 import com.netflix.hystrix.HystrixCommandGroupKey
 
+/** Class representing the api from [https://dev.streamlabs.com/reference] */
 class StreamlabsApi(
     private val clientId: String,
     private val clientSecret: String
@@ -87,12 +88,7 @@ class StreamlabsApi(
             }
         }
 
-    /**
-     * Wrap a function [block] into a HystrixCommand
-     *
-     * @param T type returned by the function
-     *
-     */
+    /** Wrap a function [block] returning a [T] into a HystrixCommand */
     private fun <T> hystrix(block: () -> T): HystrixCommand<T> {
         return object : HystrixCommand<T>(
             HystrixCommandGroupKey { baseUrl }) {
