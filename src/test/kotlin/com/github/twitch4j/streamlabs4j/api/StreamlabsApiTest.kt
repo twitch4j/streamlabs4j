@@ -68,6 +68,6 @@ class StreamlabsApiTest {
             "eur", null, authToken, null
         ).execute()
 
-        assertNotEquals(0, donation.donationId, "the returned code must not be zero")
+        assertNotEquals("", donation.donationId, "the returned code must not be empty")
     }
 }

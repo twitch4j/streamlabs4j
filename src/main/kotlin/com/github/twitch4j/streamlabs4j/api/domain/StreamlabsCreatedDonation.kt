@@ -7,4 +7,4 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 /** Streamlabs donation created by a request. */
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class StreamlabsCreatedDonation(val donationId: Long)
+data class StreamlabsCreatedDonation(val donationId: String)
