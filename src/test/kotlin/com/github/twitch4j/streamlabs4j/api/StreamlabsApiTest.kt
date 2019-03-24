@@ -70,4 +70,16 @@ class StreamlabsApiTest {
 
         assertNotEquals("", donation.donationId, "the returned code must not be empty")
     }
+
+    @Test
+    fun createAndGetDonation() {
+        val id = api.createDonation(
+            "creationTest", "some message", "test", 10.0,
+            "eur", null, authToken, null
+        ).execute().donationId
+
+        val donations = api.getDonations(authToken, null, null, null, "eur", null).execute()
+
+        assertTrue(donations.data.any { it.id == id }, "the previously created donation should be found")
+    }
 }
