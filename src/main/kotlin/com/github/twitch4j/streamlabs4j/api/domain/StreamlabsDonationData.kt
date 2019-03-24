@@ -10,10 +10,7 @@ import java.util.*
 /** Donations holder */
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
 @JsonIgnoreProperties(ignoreUnknown = true)
-class StreamlabsDonationsData {
-
-    /** List of donations */
-    val data: List<StreamlabsDonation> = listOf()
+data class StreamlabsDonationsData(val data: List<StreamlabsDonation> = listOf()) {
 
     /** Streamlabs Donation */
     @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
