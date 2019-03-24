@@ -5,9 +5,11 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Request
+import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsCreatedDonation
 import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsDonationsData
 import com.github.twitch4j.streamlabs4j.api.domain.StreamlabsUser
 import com.github.twitch4j.streamlabs4j.api.utils.RequestType.GET
+import com.github.twitch4j.streamlabs4j.api.utils.RequestType.POST
 import com.github.twitch4j.streamlabs4j.api.utils.parameters
 import com.github.twitch4j.streamlabs4j.api.utils.request
 import com.netflix.hystrix.HystrixCommand
@@ -30,12 +32,12 @@ class StreamlabsApi(
         FuelManager.instance.basePath = baseUrl
         FuelManager.instance.baseHeaders = mapOf(
             "User-Agent" to userAgent,
-            "client-id" to clientId
+            "client-donationId" to clientId
         )
     }
 
     /**
-     * Gets information about the user associated with the specified [token]
+     * Gets information about the user associated with the specified [token].
      *
      * @return the user associated with this [token]
      */
@@ -51,7 +53,7 @@ class StreamlabsApi(
         }
 
     /**
-     * Gets donations about the user associated with the specified [token]
+     * Gets donations about the user associated with the specified [token].
      *
      * The number of donations can be limited with the [limit] parameter.
      * Pagination is also supported so the [before] and [after]
@@ -87,6 +89,45 @@ class StreamlabsApi(
                 }
             }
         }
+
+    /**
+     * Create a donation for the account associated with the specified [token].
+     *
+     * The [name] of the donor must be specified and must only contain alphanumeric characters and underscores.
+     * Its length must be between 2 and 25 characters.
+     * An optional [message] can be provided. If so, it must be lesser than 255 characters.
+     * The [amount] and [currency] of the donation must be specified.
+     * See supported currencies [here](https://streamlabs.readme.io/docs/currency-codes).
+     * An optional [creationDate] can be specified in epoch format, defaulting to current time if omitted.
+     * Optionnally, the donation alert can be skipped if [skip] is set to "yes".
+     */
+    fun createDonation(
+        name: String,
+        message: String?,
+        identifier: String,
+        amount: Double,
+        currency: String,
+        creationDate: String?,
+        token: String,
+        skip: String?
+    ): HystrixCommand<StreamlabsCreatedDonation> =
+        result {
+            request {
+                endpoint = "/donations"
+                type = POST
+                parameters = parameters {
+                    "name" with name
+                    "message" with message
+                    "identifier" with identifier
+                    "amount" with amount
+                    "currency" with currency
+                    "created_at" with creationDate
+                    "access_token" with token
+                    "skip_alert" with skip
+                }
+            }
+        }
+
 
     /** Wrap a function [block] returning a [T] into a HystrixCommand */
     private fun <T> hystrix(block: () -> T): HystrixCommand<T> {

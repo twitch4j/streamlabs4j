@@ -60,4 +60,14 @@ class StreamlabsApiTest {
             "One of the donations doesn't have a message"
         )
     }
+
+    @Test
+    fun createDonationTest() {
+        val donation = api.createDonation(
+            "test", null, "test", 10.0,
+            "eur", null, authToken, null
+        ).execute()
+
+        assertNotEquals(0, donation.donationId, "the returned code must not be zero")
+    }
 }
