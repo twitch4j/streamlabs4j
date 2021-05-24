@@ -1,8 +1,6 @@
 package com.github.twitch4j.streamlabs4j.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.github.philippheuer.events4j.EventManager;
 import com.github.twitch4j.streamlabs4j.api.interceptors.CommonHeaderInterceptor;
 import com.netflix.hystrix.HystrixCommandProperties;
 import feign.Logger;
@@ -14,7 +12,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Wither;
+import lombok.With;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -29,21 +27,15 @@ import lombok.extern.slf4j.Slf4j;
 public class StreamlabsApiBuilder {
 
     /**
-     * Event Manager
-     */
-    @Wither
-    private EventManager eventManager;
-
-    /**
      * Client Id
      */
-    @Wither
+    @With
     private String clientId = "";
 
     /**
      * Client Secret
      */
-    @Wither
+    @With
     private String clientSecret = "**SECRET**";
 
     /**
@@ -74,7 +66,7 @@ public class StreamlabsApiBuilder {
         log.debug("API: Initializing Module ...");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new Jdk8Module());
+        mapper.findAndRegisterModules();
 
         HystrixCommandProperties.Setter().withExecutionTimeoutInMilliseconds(5000);
         HystrixCommandProperties.Setter().withExecutionTimeoutEnabled(false);

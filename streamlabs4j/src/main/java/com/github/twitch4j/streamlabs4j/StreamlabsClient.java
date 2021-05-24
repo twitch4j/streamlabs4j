@@ -1,15 +1,9 @@
 package com.github.twitch4j.streamlabs4j;
 
-import com.github.philippheuer.events4j.EventManager;
 import com.github.twitch4j.streamlabs4j.api.StreamlabsApi;
 import com.github.twitch4j.streamlabs4j.auth.StreamlabsAuth;
 
 public class StreamlabsClient {
-
-    /**
-     * Event Manager
-     */
-    private final EventManager eventManager;
 
     /**
      * Auth
@@ -24,12 +18,10 @@ public class StreamlabsClient {
     /**
      * Constructor
      *
-     * @param eventManager EventManager
      * @param auth         Streamlabs Auth
      * @param api          Streamlabs API
      */
-    public StreamlabsClient(EventManager eventManager, StreamlabsAuth auth, StreamlabsApi api) {
-        this.eventManager = eventManager;
+    public StreamlabsClient(StreamlabsAuth auth, StreamlabsApi api) {
         this.auth = auth;
         this.api = api;
     }

@@ -2,14 +2,13 @@ package com.github.twitch4j.streamlabs4j;
 
 import com.github.philippheuer.credentialmanager.CredentialManager;
 import com.github.philippheuer.credentialmanager.CredentialManagerBuilder;
-import com.github.philippheuer.events4j.EventManager;
 import com.github.twitch4j.streamlabs4j.api.StreamlabsApi;
 import com.github.twitch4j.streamlabs4j.api.StreamlabsApiBuilder;
 import com.github.twitch4j.streamlabs4j.auth.StreamlabsAuth;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Wither;
+import lombok.With;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -23,31 +22,25 @@ public class StreamlabsClientBuilder {
     /**
      * Client ID
      */
-    @Wither
+    @With
     private String clientId;
 
     /**
      * Client Secret
      */
-    @Wither
+    @With
     private String clientSecret;
 
     /**
      * Redirect Url
      */
-    @Wither
+    @With
     private String redirectUrl = "http://localhost";
-
-    /**
-     * EventManager
-     */
-    @Wither
-    private EventManager eventManager = new EventManager();
 
     /**
      * CredentialManager
      */
-    @Wither
+    @With
     private CredentialManager credentialManager = CredentialManagerBuilder.builder().build();
 
     /**
@@ -80,7 +73,7 @@ public class StreamlabsClientBuilder {
             .build();
 
         // Client Builder
-        final StreamlabsClient client = new StreamlabsClient(eventManager, auth, api);
+        final StreamlabsClient client = new StreamlabsClient(auth, api);
 
         // Return new Client Instance
         return client;

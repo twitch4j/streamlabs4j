@@ -50,9 +50,6 @@ client.log
 # JavaDoc
 /docs/javadoc/*
 
-# Example Code
-src/*/java/twitch4j/example/*
-
 # Modules
 /modules/
 
