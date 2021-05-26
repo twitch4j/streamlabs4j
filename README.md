@@ -25,12 +25,27 @@ This project provides multiple standalone modules you can use to interact with t
 
 Check out the [Documentation](https://twitch4j.gitlab.io/streamlabs4j/)!
 
+## Dependency
+
+Maven:
+```xml
+<dependency>
+  <groupId>io.github.twitch4j.streamlabs4j</groupId>
+  <artifactId>streamlabs4j</artifactId>
+  <version>0.9.0</version>
+</dependency>
+```
+
+Gradle:
+```gradle
+implementation 'io.github.twitch4j.streamlabs4j:streamlabs4j:0.9.0'
+```
+
 --------
 
 ## Features
 
 Shared
-* [Event4J](https://github.com/PhilippHeuer/events4j)
 * [Credential Manager](https://github.com/PhilippHeuer/credential-manager)
 
 Project
