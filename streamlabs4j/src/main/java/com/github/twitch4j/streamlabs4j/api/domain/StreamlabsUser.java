@@ -65,6 +65,11 @@ public class StreamlabsUser {
          */
         private String displayName;
 
+        /**
+         * Primary platform selected by the user
+         */
+        private String primary;
+
     }
 
     /**
@@ -151,7 +156,7 @@ public class StreamlabsUser {
         /**
          * Id of the user
          */
-        private Long id;
+        private String id;
 
         /**
          * Name displayed on Facebook's website
