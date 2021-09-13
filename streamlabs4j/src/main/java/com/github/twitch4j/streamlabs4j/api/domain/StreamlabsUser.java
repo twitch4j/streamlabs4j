@@ -67,6 +67,8 @@ public class StreamlabsUser {
 
         /**
          * Primary platform selected by the user
+         *
+         * @apiNote Unofficial field as the official documentation does not reference it.
          */
         private String primary;
 
@@ -156,7 +158,7 @@ public class StreamlabsUser {
         /**
          * Id of the user
          */
-        private String id;
+        private Long id;
 
         /**
          * Name displayed on Facebook's website

@@ -13,6 +13,7 @@ dependencies {
 	// Jackson (JSON)
 	api(group = "com.fasterxml.jackson.core", name = "jackson-databind")
 	api(group = "com.fasterxml.jackson.core", name = "jackson-annotations")
+	api(group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310")
 	api(group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jdk8")
 }
 
