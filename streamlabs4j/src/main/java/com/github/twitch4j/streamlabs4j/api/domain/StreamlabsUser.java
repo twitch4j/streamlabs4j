@@ -3,6 +3,7 @@ package com.github.twitch4j.streamlabs4j.api.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.github.twitch4j.streamlabs4j.api.annotation.Unofficial;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -67,9 +68,8 @@ public class StreamlabsUser {
 
         /**
          * Primary platform selected by the user
-         *
-         * @apiNote Unofficial field as the official documentation does not reference it.
          */
+        @Unofficial
         private String primary;
 
     }
